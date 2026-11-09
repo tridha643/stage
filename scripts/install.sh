@@ -6,4 +6,4 @@ cd "$(dirname "$0")/.."
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 scripts/dist.sh "$tmp/dist"
-sh install.sh "$tmp/dist"
+sh install.sh "$tmp/dist" "$@"

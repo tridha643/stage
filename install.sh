@@ -30,7 +30,8 @@ bin="$HOME/.local/bin"
 support="$HOME/Library/Application Support/Notes"
 plist="$HOME/Library/LaunchAgents/dev.notes.notesd.plist"
 # Keep a host's session directory across upgrades; an explicit value wins.
-stage_dir="${NOTES_STAGE_DIR:-$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NOTES_STAGE_DIR' "$plist" 2>/dev/null || true)}"
+# PlistBuddy prints "File Doesn't Exist" to stdout, so only ask it when the plist is there.
+stage_dir="${NOTES_STAGE_DIR:-$([ ! -f "$plist" ] || /usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:NOTES_STAGE_DIR' "$plist" 2>/dev/null || true)}"
 case "$stage_dir" in
   ""|/*) ;;
   *) echo "NOTES_STAGE_DIR must be an absolute path" >&2; exit 1 ;;

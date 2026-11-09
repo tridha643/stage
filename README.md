@@ -33,8 +33,15 @@ curl -fsSL https://raw.githubusercontent.com/tridha643/stage/main/install.sh | s
 This downloads the latest release into `~/.local/bin` (`notesd`, `notes`, `stage`,
 `stage-helper`), registers the `notesd` LaunchAgent, copies the stage and brief-me skills into every
 agent skills folder it finds (`~/.claude/skills`, `~/.codex/skills`, `~/.pi/agent/skills`,
-`~/.agents/skills`), and ends with `notes doctor`. Run it again to upgrade. Pin a version with
-`STAGE_VERSION=v0.1.0`.
+`~/.agents/skills`), and ends with `notes doctor` and a list of every path it wrote or removed. Run
+it again to upgrade. Pin a version with `STAGE_VERSION=v0.1.0`.
+
+The installer marks the skill folders it writes with `.stage-managed` and only replaces a folder
+that still carries an unedited marker. A same-named skill of your own, or one you've edited, stays
+put unless you answer yes at the prompt; it's then moved to
+`~/Library/Application Support/Notes/backups/<time>/`. Replacing an older herdr asks first too.
+With no terminal to ask on, the answer is no. Pass `--force` (`curl … | sh -s -- --force`) to
+answer yes to all of it.
 
 Then open a terminal pane beside your agent and run `stage`. Diagrams, images and HTML need a
 terminal that speaks the kitty graphics protocol.
